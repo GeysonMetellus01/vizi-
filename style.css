@@ -12,7 +12,7 @@ header{
     justify-content: center;
 }
 header img{
-    width:200px;
+    width:170px;
 }
 .page-acceuil{
     height:100vh;
@@ -29,25 +29,29 @@ header img{
 }
 .titre-container h1{
     color:#ffffff;
-    font-size:30px;
+    font-size:calc(55* var(--res));
     text-align: center;
+    text-wrap: balance;
+    word-break: break-word;
+    hyphens: auto;
+    
+}
+.logo-acceuil{
+    width:170px;
 }
 .btn-acces{
     background-color: #ffffff;
-    padding:10px 70px;
+    width:100%;
+    padding:12px;
     border-radius:15px;
     border: none;
-}
-.btn-accesr:active{
-    background-color:#568a9e;
-}
-.btn-acces{
-    font-size:30px;
-    font-size:30px;
+    font-size:calc(45* var(--res));
     text-decoration: none;
     color:#000000;
-    font-size: 26px;
     font-weight: bold;
+}
+.btn-acces:active{
+    background-color:#568a9e;
 }
 
 
@@ -64,23 +68,26 @@ form{
     margin:20px;
 }
 .champ-action label{
-    font-size:30px;
+    font-size:calc(40*var(--res));
     display:block;
     margin-bottom:10px;
 }
 .champ-action input{
     width:100%;
-    padding:10px;
+    padding:7px;
     border:1px solid #476774;
     outline: none;
-    font-size: 22px;
+    font-size:calc(40*var(--res));
+    border-radius: 7px;
 }
 .champ-action textarea{
     width:100%;
-    padding:10px;
-    height: 100px;
+    padding:7px;
+    height: 130px;
     border:1px solid #476774;
     outline:none;
+    font-size:calc(40*var(--res));
+    border-radius: 7px;
 }
 .conteneur-btn-submit-principale {
     width:100%;
@@ -95,7 +102,7 @@ form{
 .btn-visual button{
     width:100%;
     padding:10px;
-    font-size:30px;
+    font-size:calc(45*var(--res));
     font-weight:bold;
     border-radius:10px;
     background-color: #476774;
@@ -107,6 +114,13 @@ form{
 .page-visualisation{
     padding:10px;
     display:none;
+}
+.text-communication{
+    margin:25px 0;
+}
+.text-communication p{
+    text-align: justify;
+    font-size:calc(50 * var(--res));
 }
 
 .visuel-container{
@@ -190,5 +204,49 @@ form{
     width:60%;
     border:2px solid #476774;
     background-color: #476774;
+    color:#ffffff;
+}
+
+/* Style pour le commentaire au bas de la page:*/
+.commentaire-container{
+    margin-top:15%;
+}
+.commentaire-container h3{
+    margin-bottom:15px;
+    text-align:justify;
+    font-size:calc(50 * var(--res));
+    
+
+}
+.conteneur-champ-commentaire{
+    margin-bottom: 15px;
+    padding:5px;
+}
+.conteneur-champ-commentaire label{
+    display: block;
+    margin-bottom:10px;
+    font-size:calc(38 * var(--res));
+}
+.conteneur-champ-commentaire input{
+    width:100%;
+    border: 2px solid #000000;
+    padding:10px;
+    border-radius:10px;
+}
+.conteneur-champ-commentaire textarea{
+    width:100%;
+    height:20vh;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding:10px;
+}
+form button{
+    padding:12px;
+    width:100%;
+    font-size:calc(38 * var(--res));
+    font-weight: bold;
+    border: 2px solid #ffcf49;
+    border-radius:10px;
+    background-color:#476774;
     color:#ffffff;
 }
