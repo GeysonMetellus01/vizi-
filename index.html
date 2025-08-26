@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediatek</title>
+    <link rel="styleSheet" href="style.css"/>
+</head>
+<body>
+    <header>
+        <img src="logo_mediatek.png" alt="logo"/>
+    </header>
+    <!--/////////////////////////// Page acceuil ////////////////////////////////-->
+    <section class="page-acceuil">
+        <div class="titre-container">
+            <h1>Votre petit outil, pour la création de vos visuels simples et rapide.</h1>
+        </div>
+        <div class="image-container">
+            <img class="logo-acceuil" src="logo_mediatek.png" alt="logo"/>
+        </div>
+        
+        <button class="btn-acces">Créer votre Visual</button>
+        
+    </section>
+    <!--/////////////////////// Page principale /////////////////////////////////////-->
+    <section class="page-principale">
+        <form method="" action="" class="form">
+            <div class="champ-action flex-champ">
+                <label for="logo-user">Insérer votre logo:</label>
+                <input type="file" id="logo-user" name="logo-user"/>
+            </div>
+            <div class="champ-action">
+                <label for="category">Thématique:</label>
+                <input type="text" id="category" name="category" maxlength="80"/>
+            </div>
+            <div class="champ-action">
+                <label for="titre">Titre:</label>
+                <input type="text" id="titre" name="titre" maxlength="150"/>
+            </div>
+            <div class="champ-action">
+                <label for="contenu">Contenu:</label>
+                <textarea name="contenu" id="contenu" maxlength="500"></textarea>
+            </div>
+            <div class="champ-action flex-champ">
+                <label for="background">Insérer l'image de fond:</label>
+                <input type="file" id="background" name="background"/>
+            </div>
+            <div class="btn-visual">
+                <button type="button" class="form-button">Visualiser</button>
+            </div>
+        </form>
+    </section>
+    <!----------------------------Page de visualisation---------------------------->
+    <section class="page-visualisation">
+        <div class="visuel-container">
+            <div class="visuel">
+                <div>
+                    <div class="logo-container-visuel">
+                        <img src="logo_mediatek.png" alt="" class="logo-visuel"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="theme-container"><h4 class="theme"></h4></div>
+                <div class="titre-container-visuel">
+                    <h1 class="titre-visuel"></h1>
+                </div>
+                <!-- <div class="contenu">
+                    <p class="contenu-visuel">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis facere sapiente asperiores 
+                        ratione delectus molestias harum. Illo ratione reiciendis, ut sapiente mollitia sunt officiis 
+                        quod quisquam repellat at ea eius.
+                    </p>
+                </div> -->
+                </div>
+            </div>  
+            <div class="btn-visuel-container">
+                <button class="btn-annul">ANNULER</button>
+                <button class="btn-download">TELECHARGER</button>
+            </div>
+        </div>
+    </section>
+    <script src="script.js" type="module" defer></script>
+</body>
+</html>
