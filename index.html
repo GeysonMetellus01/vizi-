@@ -27,7 +27,7 @@
         <form method="" action="" class="form">
             <div class="champ-action flex-champ">
                 <label for="logo-user">Insérer votre logo:</label>
-                <input type="file" id="logo-user" name="logo-user"/>
+                <input type="file" id="logo-user" name="logo-user" accept="image/*"/>
             </div>
             <div class="champ-action">
                 <label for="category">Thématique:</label>
@@ -35,15 +35,11 @@
             </div>
             <div class="champ-action">
                 <label for="titre">Titre:</label>
-                <input type="text" id="titre" name="titre" maxlength="150"/>
-            </div>
-            <div class="champ-action">
-                <label for="contenu">Contenu:</label>
-                <textarea name="contenu" id="contenu" maxlength="500"></textarea>
+                <textarea id="titre" name="titre" maxlength="200"></textarea>
             </div>
             <div class="champ-action flex-champ">
                 <label for="background">Insérer l'image de fond:</label>
-                <input type="file" id="background" name="background"/>
+                <input type="file" id="background" name="background" accept="image/*"/>
             </div>
             <div class="btn-visual">
                 <button type="button" class="form-button">Visualiser</button>
@@ -52,6 +48,14 @@
     </section>
     <!----------------------------Page de visualisation---------------------------->
     <section class="page-visualisation">
+        <div class="text-communication">
+            <p>
+                Notre petit outit,<span>VIZI-ENFO</span>, est developpé dans le but de vous faciliter
+                la créztion de vos visuels d'informations.Nous vous prions d'en faire bon usage et de nous laisser
+                vos doléances dans la section commentaire au bas de la page pour un meilleur developpement de ce 
+                dernier.
+            </p>
+        </div>
         <div class="visuel-container">
             <div class="visuel">
                 <div>
@@ -77,6 +81,21 @@
                 <button class="btn-annul">ANNULER</button>
                 <button class="btn-download">TELECHARGER</button>
             </div>
+        </div>
+        <div class="commentaire-container">
+            <form action="" method="">
+                <h3>Envoyer-nous votre doléance ou un simple petit message:</h3>
+                <div class="conteneur-champ-commentaire">
+                    <label for="identifiant">Email</label>
+                    <input type="mail" name="identification" id="identification" required/>
+                </div>
+                <div class="conteneur-champ-commentaire">
+                    <label for="message">Votre message</label>
+                    <textarea id="message" name="message"></textarea>
+                </div>
+                <button type="button">Envoyer</button>
+            </form>
+            
         </div>
     </section>
     <script src="script.js" type="module" defer></script>
