@@ -147,10 +147,10 @@ form{
 }
 .logo-container-visuel{
     margin:20px;
-    width: clamp(30px, 10%, 60px);
+    width: clamp(30px, 07%, 60px);
 }
 .logo-visuel{
-    width:100px;
+    width:80px;
 }
 
 .titre-container-visuel{
@@ -248,4 +248,5 @@ form button{
     background-color:#476774;
     color:#ffffff;
 } 
+
 
