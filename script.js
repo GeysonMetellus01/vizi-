@@ -91,32 +91,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Pour le telechargement du visuel:
     const btn_download = document.querySelector('.btn-download');
-    btn_download.addEventListener('click', (e) => {
-    e.preventDefault();
+    btn_download.addEventListener('click', async (e) => {
+        e.preventDefault();
 
-    // On génère le canvas HD du visuel
-    html2canvas(visuel, { useCORS: true, scale:3 }).then(canvas => {
-        // Conversion en Blob pour un téléchargement plus fiable
-        canvas.toBlob((blob) => {
-            if (!blob) {
-                alert("Erreur lors de la génération de l'image.");
-                return;
-            }
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.href = url;
-            link.download = 'visuel.png';
-            link.click();
+        // On attend que toutes les images de fond soient chargées
+        await Promise.all(
+            Array.from(document.images)
+                .filter(img => !img.complete)
+                .map(img => new Promise(resolve => {
+                img.onload = img.onerror = resolve;
+            }))
+        );
 
-            // Nettoyage
-            URL.revokeObjectURL(url);
-        }, 'image/png', 1.0);
-    }).catch(err => {
-        console.error("Erreur html2canvas:", err);
-        alert("Impossible de générer le visuel.");
+        // On génère le canvas HD
+        html2canvas(visuel, {
+            useCORS: true,          // Autorise le rendu d'images externes
+            allowTaint: false,      // Évite les images corrompues
+            backgroundColor: null,  // Conserve la transparence si besoin
+            scale: 4,               // Met un scale élevé (3 à 6 max pour garder qualité)
+            logging: false
+        })
+        .then(canvas => {
+            // Conversion en Blob PNG haute qualité
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    alert("Erreur lors de la génération du visuel.");
+                    return;
+                }
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.href = url;
+                link.download = 'visuel-HD.png';
+                link.click();
+
+                // Nettoyage
+                URL.revokeObjectURL(url);
+                }, 'image/png', 1.0); // Qualité max
+            })
+        .catch(err => {
+            console.error("Erreur html2canvas:", err);
+            alert("Impossible de générer le visuel.");
+        }); 
     });
-});
+
 
 });
-
 
