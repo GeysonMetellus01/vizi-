@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mediatek</title>
-    <link rel="styleSheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <header>
@@ -39,7 +40,7 @@
             </div>
             <div class="champ-action flex-champ">
                 <label for="background">Insérer l'image de fond:</label>
-                <input type="file" id="background" name="background" accept="image/*"/>
+                <input type="file" id="background" name="background" accept="image/*" required/>
             </div>
             <div class="btn-visual">
                 <button type="button" class="form-button">Visualiser</button>
@@ -50,8 +51,8 @@
     <section class="page-visualisation">
         <div class="text-communication">
             <p>
-                Notre petit outit,<span>VIZI-ENFO</span>, est developpé dans le but de vous faciliter
-                la créztion de vos visuels d'informations.Nous vous prions d'en faire bon usage et de nous laisser
+                Notre petit outil,<span>VIZI-ENFO</span>, est developpé dans le but de vous faciliter
+                la création de vos visuels d'informations.Nous vous prions d'en faire bon usage et de nous laisser
                 vos doléances dans la section commentaire au bas de la page pour un meilleur developpement de ce 
                 dernier.
             </p>
@@ -60,25 +61,19 @@
             <div class="visuel">
                 <div>
                     <div class="logo-container-visuel">
-                        <img src="logo_mediatek.png" alt="" class="logo-visuel"/>
+                        <img src="" alt="" class="logo-visuel"/>
                     </div>
                 </div>
                 <div>
                     <div class="theme-container"><h4 class="theme"></h4></div>
-                <div class="titre-container-visuel">
-                    <h1 class="titre-visuel"></h1>
-                </div>
-                <!-- <div class="contenu">
-                    <p class="contenu-visuel">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis facere sapiente asperiores 
-                        ratione delectus molestias harum. Illo ratione reiciendis, ut sapiente mollitia sunt officiis 
-                        quod quisquam repellat at ea eius.
-                    </p>
-                </div> -->
+                    <div class="titre-container-visuel">
+                        <h1 class="titre-visuel">
+                        </h1>
+                    </div>
                 </div>
             </div>  
             <div class="btn-visuel-container">
-                <button class="btn-annul">ANNULER</button>
+                <button class="btn-retour">Retour</button>
                 <button class="btn-download">TELECHARGER</button>
             </div>
         </div>
@@ -91,7 +86,7 @@
                 </div>
                 <div class="conteneur-champ-commentaire">
                     <label for="message">Votre message</label>
-                    <textarea id="message" name="message"></textarea>
+                    <textarea id="message" name="message" required></textarea>
                 </div>
                 <button type="button">Envoyer</button>
             </form>
