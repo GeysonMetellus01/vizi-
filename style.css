@@ -120,7 +120,7 @@ form{
 }
 .text-communication p{
     text-align: justify;
-    font-size:calc(50 * var(--res));
+    font-size:calc(43 * var(--res));
 }
 
 .visuel-container{
@@ -129,11 +129,11 @@ form{
 }
 .visuel{
     border:1px solid #0a151a;
-    background-image:linear-gradient(to top, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.021)),url(cassy.jpeg);
+    background-image:linear-gradient(to top, rgba(0, 0, 0, 0.329), rgba(39, 39, 39, 0.021)),
+    url();
     background-size: cover;
     background-position: center;
-    border: 2px solid #476774;
-    border-radius: 10px;
+    border: none;
     color: white;
     pointer-events: none;
     width:100%;
@@ -141,11 +141,11 @@ form{
     aspect-ratio: 1/1;
     display: flex;;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .logo-container-visuel{
     margin:20px;
-    width: clamp(50px, 15%, 100px);
+    width: clamp(30px, 10%, 60px);
 }
 .logo-visuel{
     width:100px;
@@ -167,20 +167,14 @@ form{
     background-color:rgba(34,34,34,0.58);
     width:35%;
     padding:05px;
+    display:none;
 }
 .theme{
     color:#ffffff;
     font-size: calc(38 * var(--res));
 }
 
-/* .contenu{
-    margin:20px;
-}
-.contenu-visuel{
-    text-align: justify;
-    font-size: 15px;
-    color:#ffffff;
-} */
+
 
 .btn-visuel-container{
     margin-top:10px;
@@ -194,7 +188,7 @@ form{
     font-weight: bold;
     border-radius: 08px;
 }
-.btn-annul{
+.btn-retour{
     width:40%;
     border:2px solid #476774;
     background-color: #ffffff;
@@ -229,14 +223,14 @@ form{
 }
 .conteneur-champ-commentaire input{
     width:100%;
-    border: 2px solid #000000;
+    border: 1px solid #000000;
     padding:10px;
     border-radius:10px;
 }
 .conteneur-champ-commentaire textarea{
     width:100%;
     height:20vh;
-    border: 2px solid #000000;
+    border: 1px solid #000000;
     border-radius: 10px;
     padding:10px;
 }
@@ -245,8 +239,8 @@ form button{
     width:100%;
     font-size:calc(38 * var(--res));
     font-weight: bold;
-    border: 2px solid #ffcf49;
+    border: 1px solid #ffcf49;
     border-radius:10px;
     background-color:#476774;
     color:#ffffff;
-}
+} 
