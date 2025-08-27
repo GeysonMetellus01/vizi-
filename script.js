@@ -94,45 +94,36 @@ document.addEventListener("DOMContentLoaded", () => {
     btn_download.addEventListener('click', async (e) => {
         e.preventDefault();
 
-        // On attend que toutes les images de fond soient chargées
-        await Promise.all(
-            Array.from(document.images)
-                .filter(img => !img.complete)
-                .map(img => new Promise(resolve => {
-                img.onload = img.onerror = resolve;
-            }))
-        );
+        // Sauvegarder la taille originale
+        const originalWidth = visuel.style.width;
+        const originalMaxWidth = visuel.style.maxWidth;
 
-        // On génère le canvas HD
-        html2canvas(visuel, {
-            useCORS: true,          // Autorise le rendu d'images externes
-            allowTaint: false,      // Évite les images corrompues
-            backgroundColor: null,  // Conserve la transparence si besoin
-            scale: 4,               // Met un scale élevé (3 à 6 max pour garder qualité)
-            logging: false
-        })
-        .then(canvas => {
-            // Conversion en Blob PNG haute qualité
+        // Forcer une taille plus grande pour avoir un rendu net
+        visuel.style.width = "2000px";
+        visuel.style.maxWidth = "2000px";
+
+        // Capture en haute résolution
+        html2canvas(visuel, { scale: 2, useCORS: true }).then(canvas => {
+            // Revenir à la taille normale
+            visuel.style.width = originalWidth;
+            visuel.style.maxWidth = originalMaxWidth;
+
+            // Télécharger
             canvas.toBlob((blob) => {
                 if (!blob) {
-                    alert("Erreur lors de la génération du visuel.");
+                    alert("Erreur lors de la génération de l'image.");
                     return;
                 }
                 const link = document.createElement('a');
                 const url = URL.createObjectURL(blob);
                 link.href = url;
-                link.download = 'visuel-HD.png';
+                link.download = 'visuel.png';
                 link.click();
-
-                // Nettoyage
                 URL.revokeObjectURL(url);
-                }, 'image/png', 1.0); // Qualité max
-            })
-        .catch(err => {
-            console.error("Erreur html2canvas:", err);
-            alert("Impossible de générer le visuel.");
-        }); 
+            }, 'image/png', 1.0);
+        });
     });
+
 
 
 });
