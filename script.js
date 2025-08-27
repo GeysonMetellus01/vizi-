@@ -61,14 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         //l'image de fond
-
-        
-
-        if (fond &&  fond.size > 0 && fond.type.startsWith("image/")) {
+        const bgVisuel = document.querySelector('.bg-visuel');
+        if (fond && fond.size > 0 && fond.type.startsWith("image/")) {
             const fondURL = URL.createObjectURL(fond);
-            visuel.style.backgroundImage = `linear-gradient(to top, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.021)), 
-            url(${fondURL})`;
-        } 
+            bgVisuel.onload = () => URL.revokeObjectURL(fondURL);
+            bgVisuel.src = fondURL;
+        }
 
         
 
@@ -90,40 +88,54 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     //Pour le telechargement du visuel:
+    async function waitForImagesOf(root){
+        const imgs = Array.from(root.querySelectorAll('img')).filter(i => !i.complete);
+        if (imgs.length === 0) return;
+        await Promise.all(imgs.map(img => new Promise(res => { img.onload = img.onerror = res; })));
+    }
+
     const btn_download = document.querySelector('.btn-download');
     btn_download.addEventListener('click', async (e) => {
         e.preventDefault();
 
-        // Sauvegarder la taille originale
-        const originalWidth = visuel.style.width;
-        const originalMaxWidth = visuel.style.maxWidth;
+        // (Optionnel mais utile) : gonfler temporairement la taille pour plus de détails
+        const originalW = visuel.style.width;
+        const originalMaxW = visuel.style.maxWidth;
+        visuel.style.width = "1600px";
+        visuel.style.maxWidth = "1600px";
 
-        // Forcer une taille plus grande pour avoir un rendu net
-        visuel.style.width = "2000px";
-        visuel.style.maxWidth = "2000px";
+        await waitForImagesOf(visuel); // attend bg + logo
 
-        // Capture en haute résolution
-        html2canvas(visuel, { scale: 2, useCORS: true }).then(canvas => {
-            // Revenir à la taille normale
-            visuel.style.width = originalWidth;
-            visuel.style.maxWidth = originalMaxWidth;
+        try{
+            const canvas = await html2canvas(visuel, {
+                useCORS: true,
+                allowTaint: false,
+                backgroundColor: null,
+                scale: 2,        // 2 ou 3 suffisent si on a élargi à 1600px
+                logging: false
+            });
 
-            // Télécharger
+            // on remet la taille normale
+            visuel.style.width = originalW;
+            visuel.style.maxWidth = originalMaxW;
+
             canvas.toBlob((blob) => {
-                if (!blob) {
-                    alert("Erreur lors de la génération de l'image.");
-                    return;
-                }
-                const link = document.createElement('a');
+                if (!blob) return alert("Erreur lors de la génération de l'image.");
                 const url = URL.createObjectURL(blob);
-                link.href = url;
-                link.download = 'visuel.png';
-                link.click();
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'visuel-HD.png';
+                a.click();
                 URL.revokeObjectURL(url);
             }, 'image/png', 1.0);
-        });
+        }catch(err){
+            // on remet la taille même en cas d'erreur
+            visuel.style.width = originalW;
+            visuel.style.maxWidth = originalMaxW;
+            console.error(err);
+            alert("Impossible de générer le visuel.");
+        }
     });
-
 
 
 });
