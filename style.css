@@ -130,8 +130,8 @@ form{
 }
 .visuel{
     border:1px solid #0a151a;
-    background-image:linear-gradient(to top, rgba(0, 0, 0, 0.329), rgba(39, 39, 39, 0.021)),
-    url();
+    /* background-image:linear-gradient(to top, rgba(0, 0, 0, 0.329), rgba(39, 39, 39, 0.021)),
+    url(); */
     background-size: cover;
     background-position: center;
     border: 1px solid #000000;
@@ -143,7 +143,31 @@ form{
     display: flex;;
     flex-direction: column;
     justify-content: space-between;
+    position:relative;
+
 }
+.bg-visuel{
+    position: absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    pointer-events:none;
+    inset: 0;
+    z-index:0;
+}
+.gradient-overlay{
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.74), rgba(0,0,0,0.021));
+  z-index: 1;
+  pointer-events: none;
+}
+.visuel > div{
+  position: relative;
+  z-index: 2;
+}
+
+
 .logo-container-visuel{
     margin:20px;
     width: clamp(30px, 07%, 60px);
@@ -159,7 +183,7 @@ form{
 .titre-visuel{
     font-size:calc(40 * var(--res));
     color:#ffffff;
-    text-align:center;
+    text-align:left;
     line-height:1.6;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
@@ -246,8 +270,5 @@ form button{
     background-color:#476774;
     color:#ffffff;
 } 
-
-
-
 
 
