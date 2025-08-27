@@ -159,7 +159,7 @@ form{
 .titre-visuel{
     font-size:calc(40 * var(--res));
     color:#ffffff;
-    text-align:left;
+    text-align:center;
     line-height:1.6;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
@@ -246,6 +246,7 @@ form button{
     background-color:#476774;
     color:#ffffff;
 } 
+
 
 
 
