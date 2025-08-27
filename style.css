@@ -120,6 +120,8 @@ form{
 }
 .text-communication p{
     text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto; 
     font-size:calc(43 * var(--res));
 }
 
@@ -159,6 +161,8 @@ form{
     font-size:calc(40 * var(--res));
     color:#ffffff;
     text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
@@ -244,3 +248,4 @@ form button{
     background-color:#476774;
     color:#ffffff;
 } 
+
