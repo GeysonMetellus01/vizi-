@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     // On génère le canvas HD du visuel
-    html2canvas(visuel, { useCORS: true, scale: 4 }).then(canvas => {
+    html2canvas(visuel, { useCORS: true, scale:6 }).then(canvas => {
         // Conversion en Blob pour un téléchargement plus fiable
         canvas.toBlob((blob) => {
             if (!blob) {
@@ -118,3 +118,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 });
+
