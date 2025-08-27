@@ -134,7 +134,7 @@ form{
     url();
     background-size: cover;
     background-position: center;
-    border: none;
+    border: 1px solid #000000;
     color: white;
     pointer-events: none;
     width:100%;
@@ -246,6 +246,7 @@ form button{
     background-color:#476774;
     color:#ffffff;
 } 
+
 
 
 
