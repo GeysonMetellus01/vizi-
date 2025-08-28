@@ -52,25 +52,25 @@ document.addEventListener("DOMContentLoaded", () => {
         if(titre)titre_visuel.textContent=titre;
 
         //Gerons le logo et l'image de fond:
-        if (logo &&  logo.size > 0 && logo.type.startsWith("image/")) {
+        // Gestion logo et fond
+        if (logo && logo.size > 0 && logo.type.startsWith("image/")) {
             const reader = new FileReader();
-            reader.onload = function(e) {
-               logo_visuel.src = e.target.result;
-            }
+            reader.onload = function (e) {
+                logo_visuel.src = e.target.result; // DataURL
+            };
             reader.readAsDataURL(logo);
         }
 
-        //l'image de fond
         const bgVisuel = document.querySelector('.bg-visuel');
         if (fond && fond.size > 0 && fond.type.startsWith("image/")) {
-            const fondURL = URL.createObjectURL(fond);
-            bgVisuel.onload = () => URL.revokeObjectURL(fondURL);
-            bgVisuel.src = fondURL;
-        }
-
-        
-
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                bgVisuel.src = e.target.result; // DataURL → fiable et net
+            };
+            reader.readAsDataURL(fond);
+        }  
     })
+
 
     //Section de Visualisation:
     //Bouton Retour:
@@ -87,35 +87,39 @@ document.addEventListener("DOMContentLoaded", () => {
         //Vidons le formulaire
     })
 
-    //Pour le telechargement du visuel:
-    async function waitForImagesOf(root){
+    // Pour le téléchargement du visuel
+    async function waitForImagesOf(root) {
         const imgs = Array.from(root.querySelectorAll('img')).filter(i => !i.complete);
         if (imgs.length === 0) return;
-        await Promise.all(imgs.map(img => new Promise(res => { img.onload = img.onerror = res; })));
+        await Promise.all(
+            imgs.map(img => new Promise(res => {
+                img.onload = img.onerror = res;
+            }))
+        );
     }
 
     const btn_download = document.querySelector('.btn-download');
     btn_download.addEventListener('click', async (e) => {
         e.preventDefault();
 
-        // (Optionnel mais utile) : gonfler temporairement la taille pour plus de détails
         const originalW = visuel.style.width;
         const originalMaxW = visuel.style.maxWidth;
+
+        // élargir temporairement
         visuel.style.width = "1600px";
         visuel.style.maxWidth = "1600px";
 
-        await waitForImagesOf(visuel); // attend bg + logo
+        await waitForImagesOf(visuel);
 
-        try{
+        try {
             const canvas = await html2canvas(visuel, {
                 useCORS: true,
-                allowTaint: false,
                 backgroundColor: null,
-                scale: 2,        // 2 ou 3 suffisent si on a élargi à 1600px
+                scale: 4,  // qualité meilleure
                 logging: false
             });
 
-            // on remet la taille normale
+            // remettre la taille normale
             visuel.style.width = originalW;
             visuel.style.maxWidth = originalMaxW;
 
@@ -124,19 +128,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'visuel-HD.png';
+                a.download = `visuel_${Math.floor(Math.random()*100)}.png`;
                 a.click();
                 URL.revokeObjectURL(url);
             }, 'image/png', 1.0);
-        }catch(err){
-            // on remet la taille même en cas d'erreur
+
+        } catch (err) {
             visuel.style.width = originalW;
             visuel.style.maxWidth = originalMaxW;
             console.error(err);
             alert("Impossible de générer le visuel.");
         }
     });
-
 
 });
 
