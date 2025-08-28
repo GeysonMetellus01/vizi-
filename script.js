@@ -100,53 +100,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btn_download = document.querySelector('.btn-download');
     btn_download.addEventListener('click', async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        // Cloner le visuel pour le rendre hors écran
-        const clone = visuel.cloneNode(true);
-        
-        // Définir une taille précise et garder le ratio
-        const scale = 3; // pour la haute qualité
-        const rect = visuel.getBoundingClientRect();
-        clone.style.width = rect.width * scale + 'px';
-        clone.style.height = rect.height * scale + 'px';
-        clone.style.position = 'fixed';
-        clone.style.left = '-9999px';
-        clone.style.top = '-9999px';
-        clone.style.transform = 'scale(1)'; // éviter tout redimensionnement CSS
-        document.body.appendChild(clone);
+    // Cloner le visuel hors écran
+    const clone = visuel.cloneNode(true);
+    clone.style.position = 'fixed';
+    clone.style.left = '-9999px';
+    clone.style.top = '-9999px';
+    document.body.appendChild(clone);
 
-        await waitForImagesOf(clone);
+    await waitForImagesOf(clone);
 
-        try {
-            const canvas = await html2canvas(clone, {
-                useCORS: true,
-                backgroundColor: null,
-                scale: 1, // on a déjà scalé via la taille
-                logging: false
-            });
+    try {
+        const scale = 3; // augmente la qualité sans déformer
+        const canvas = await html2canvas(clone, {
+            useCORS: true,
+            backgroundColor: null,
+            scale: scale, // ici on scale correctement
+            logging: false
+        });
 
-            // Nombre aléatoire ≤ 5
-            const randomNumber = Math.floor(Math.random() * 100);
-            canvas.toBlob((blob) => {
-                if (!blob) return alert("Erreur lors de la génération de l'image.");
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `visuel_${randomNumber}.png`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-            }, 'image/png', 1.0);
+        // Nombre aléatoire ≤ 5
+        const randomNumber = Math.floor(Math.random() * 6); // 0 → 5 inclus
 
-        } catch (err) {
-            console.error(err);
-            alert("Impossible de générer le visuel.");
-        }
+        canvas.toBlob((blob) => {
+            if (!blob) return alert("Erreur lors de la génération de l'image.");
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `visuel_${randomNumber}.png`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }, 'image/png', 1.0);
 
-        document.body.removeChild(clone);
-    });
+    } catch (err) {
+        console.error(err);
+        alert("Impossible de générer le visuel.");
+    }
 
+    document.body.removeChild(clone);
 });
 
 
+});
 
