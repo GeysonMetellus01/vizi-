@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             // Nombre aléatoire ≤ 5
-            const randomNumber = Math.floor(Math.random() * 6);
+            const randomNumber = Math.floor(Math.random() * 100);
             canvas.toBlob((blob) => {
                 if (!blob) return alert("Erreur lors de la génération de l'image.");
                     const url = URL.createObjectURL(blob);
@@ -147,4 +147,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
 
