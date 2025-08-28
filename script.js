@@ -1,150 +1,149 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+html{
+    --res:calc(0.01 * 10vmin);
+}
+header{
+    display:flex;
+    justify-content: space-between;
+    padding:calc(20 * var(--res));
+    border-bottom: 1px solid #dadada;
+}
+.logo{
+    width:calc(300 * var(--res));
+}
+.point-recherche{
+    width:calc(100 * var(--res));
+}
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    const page_acceuil = document.querySelector('.page-acceuil');
-    const page_principal = document.querySelector('.page-principale');
-    const page_visualisation = document.querySelector('.page-visualisation');
-    const visuel = document.querySelector('.visuel'); 
-    const formulaire = document.querySelector('form');
-    
+.section-recherche{
+    position: absolute;
+    top:-100%;
+    left:0%; 
+    padding:calc(20 * var(--res));
+    background-color: #fff;
+    width:100%;
+    transition: .5s;
+}
+.active{
+    position:absolute;
+    top:0;
+    left:0;
+}
 
-    const btn_acces_principale = document.querySelector('.btn-acces');
-
-    //Fermer la page d'acceuil pour ouvrir celle principale:
-    btn_acces_principale.addEventListener('click',() => {
-        page_acceuil.style.display = 'none';
-        page_principal.style.display='block';
-    })
-
-    //Récupérons les données du formulaire
-    const button_form = document.querySelector('.form-button');
-    button_form.addEventListener('click',()=>{
-        const formData = new FormData(formulaire);
-        const titre = formData.get('titre');
-        const logo = formData.get('logo-user');
-        const categorie = formData.get('category');
-        const fond = formData.get('background');
-        const category_container = document.querySelector('.theme-container');
-
-        //Basculons vers la page de visualisation:
-        if (titre || logo|| categorie || fond){
-            page_principal.style.display="none";
-            page_visualisation.style.display="block";
-        }
-        else{
-           return'';
-        }
-        
-        //Selectionnons les champs à remplir:
-        const logo_visuel = document.querySelector('.logo-visuel'); 
-        const category_visuel = document.querySelector('.theme'); 
-        const titre_visuel = document.querySelector('.titre-visuel'); 
-        
-
-        //Remplissons le visuel:
-        if(categorie) {
-            category_visuel.textContent = categorie;
-            category_container.style.display = 'block';
-        } else {
-            category_visuel.textContent = '';
-            category_container.style.display = 'none';
-        }
-        if(titre)titre_visuel.textContent=titre;
-
-        //Gerons le logo et l'image de fond:
-        // Gestion logo et fond
-        if (logo && logo.size > 0 && logo.type.startsWith("image/")) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                logo_visuel.src = e.target.result; // DataURL
-            };
-            reader.readAsDataURL(logo);
-        }
-
-        const bgVisuel = document.querySelector('.bg-visuel');
-        if (fond && fond.size > 0 && fond.type.startsWith("image/")) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                bgVisuel.src = e.target.result; // DataURL → fiable et net
-            };
-            reader.readAsDataURL(fond);
-        }  
-    })
+.conteneur-btn-exit{
+    display:flex;
+    justify-content: end;
+    margin-bottom:40px;
+}
+.conteneur-btn-exit img{
+    width:calc(80*var(--res));
+}
+.conteneur-recherche{
+    border: 1px solid #dfdfdf;
+    border-radius:10px;
+    display: flex;
+    justify-content: space-between;
+    padding:calc(08* var(--res));
+}
+.conteneur-recherche input{
+    flex-grow: 1;
+    font-size: calc(50 * var(--res));
+    border: none;
+    outline: none;
+}
+.conteneur-recherche input::placeholder{
+    color:#dfdfdf;
+}
+.conteneur-recherche button{
+    background-color: #2764E7;
+    border:none;
+    padding:calc(20 * var(--res));
+    border-radius: 50%;
+}
+.conteneur-recherche img{
+    width:calc(70 * var(--res));
+    height: auto;
+}
+.resultat{
+    padding:20px;
+}
 
 
-    //Section de Visualisation:
-    //Bouton Retour:
-    const btn_retour = document.querySelector('.btn-retour')
-    btn_retour.addEventListener('click',(e)=>{
-        e.preventDefault();
-        page_visualisation.style.display="none";
-        page_principal.style.display="block";
-        // Réinitialiser l’aperçu si besoin :
-        document.querySelector('.logo-visuel').src = "";
-        document.querySelector('.theme').textContent = "";
-        document.querySelector('.titre-visuel').textContent = "";
-        visuel.style.backgroundImage = "";
-        //Vidons le formulaire
-    })
+/*Travaillons sur le Navbar*/
+.navbar{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background-color: #ff9898;
+    border-top:1px solid #E85353;
+    z-index: 1;
+}
+.nav-list{
+    display:flex;
+    padding:10px;
+    justify-content: space-around;
+}
+.nav-list li{
+    list-style: none;
+}
+.nav-list li img{
+    width:calc(100*var(--res));
+}
 
-    // Pour le téléchargement du visuel
-    async function waitForImagesOf(root) {
-        const imgs = Array.from(root.querySelectorAll('img')).filter(i => !i.complete);
-        if (imgs.length === 0) return;
-        await Promise.all(
-            imgs.map(img => new Promise(res => {
-                img.onload = img.onerror = res;
-            }))
-        );
-    }
+/*Travaillons sur les options de l'utilisateur*/
+.conteneur-option-user{
+    width:60%;
+    min-width: 70%;
+    height:40vh;
+    background-color: #fff;
+    border:2px solid #dfdfdf;
+    box-shadow: 0px 0px 30px 5px #dfdfdf;
+    padding:20px;
+    position:absolute;
+    bottom:0;
+    right: 1200%;
+    transition:0.2s cubic-bezier(.8,0,.11,.93);
+}
+.affiche-option-user{
+    right:0;
+}
+.hedaer-option-user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+    margin-bottom: calc(20*var(--res));
+}
+.hedaer-option-user img{
+    width:calc(120*var(--res));
+}
+.hedaer-option-user p{
+    font-size:calc(70 * var(--res));
+    color:#2764E7;
+    font-weight: bold;
+}
+hr{
+    margin:calc(30 * var(--res)) calc(0 * var(--res));
+}
+.nav-list-profil-user{
+    list-style: none;
+}
+.nav-list-profil-user a{
+    display:flex;
+    gap:15px;
+    margin-bottom:20px;
+    text-decoration: none;
+}
+.nav-list-profil-user a img{
+    width:calc(70*var(--res));
 
-    const btn_download = document.querySelector('.btn-download');
-    btn_download.addEventListener('click', async (e) => {
-        e.preventDefault();
-
-        // Cloner le visuel pour le rendre hors écran
-        const clone = visuel.cloneNode(true);
-        
-        // Définir une taille précise et garder le ratio
-        const scale = 1; // pour la haute qualité
-        const rect = visuel.getBoundingClientRect();
-        clone.style.width = rect.width * scale + 'px';
-        clone.style.height = rect.height * scale + 'px';
-        clone.style.position = 'fixed';
-        clone.style.left = '-9999px';
-        clone.style.top = '-9999px';
-        clone.style.transform = 'scale(1)'; // éviter tout redimensionnement CSS
-        document.body.appendChild(clone);
-
-        await waitForImagesOf(clone);
-
-        try {
-            const canvas = await html2canvas(clone, {
-                useCORS: true,
-                backgroundColor: null,
-                scale: 1, // on a déjà scalé via la taille
-                logging: false
-            });
-
-            // Nombre aléatoire ≤ 5
-            const randomNumber = Math.floor(Math.random() * 6);
-            canvas.toBlob((blob) => {
-                if (!blob) return alert("Erreur lors de la génération de l'image.");
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `visuel_${randomNumber}.png`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-            }, 'image/png', 1.0);
-
-        } catch (err) {
-            console.error(err);
-            alert("Impossible de générer le visuel.");
-        }
-
-        document.body.removeChild(clone);
-    });
-
-});
-
+}
+.nav-list-profil-user a li{
+    font-size:calc(60*var(--res));
+    color:#525252;
+}
