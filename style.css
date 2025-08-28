@@ -130,6 +130,8 @@ form{
 }
 .visuel{
     border:1px solid #0a151a;
+    /* background-image:linear-gradient(to top, rgba(0, 0, 0, 0.329), rgba(39, 39, 39, 0.021)),
+    url(); */
     background-size: cover;
     background-position: center;
     border: 1px solid #000000;
@@ -158,16 +160,19 @@ form{
 .gradient-overlay{
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.50), rgba(0,0,0,0.021));
+  background: linear-gradient(to top, rgba(0,0,0,0.74), rgba(0,0,0,0.021));
   z-index: 1;
   pointer-events: none;
+  display:flex;
+  flex-direction: column;
+ justify-content: space-between;
 }
 
 
 .logo-container-visuel{
     margin:20px;
     width: clamp(30px, 07%, 60px);
-    z-index:900;
+    z-index:4;
 }
 .logo-visuel{
     width:80px;
@@ -175,8 +180,7 @@ form{
 
 .titre-container-visuel{
     margin:20px 20px 08px 20px;
-    z-index:1000;
- 
+    z-index:3;
 }
 .titre-visuel{
     font-size:calc(40 * var(--res));
@@ -192,7 +196,7 @@ form{
     width:35%;
     padding:05px;
     display:none;
-    z-index:1001;
+    z-index:2;
 }
 .theme{
     color:#ffffff;
@@ -269,6 +273,5 @@ form button{
     background-color:#476774;
     color:#ffffff;
 } 
-
 
 
