@@ -146,15 +146,17 @@ form{
     position:relative;
 
 }
-.bg-visuel{
+.bg-visuel {
     position: absolute;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    pointer-events:none;
     inset: 0;
-    z-index:0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* garde les proportions */
+    object-position: center; /* centre l’image */
+    pointer-events: none;
+    z-index: 0;
 }
+
 .gradient-overlay{
   position: absolute;
   inset: 0;
