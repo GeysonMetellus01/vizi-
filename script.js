@@ -102,43 +102,48 @@ document.addEventListener("DOMContentLoaded", () => {
     btn_download.addEventListener('click', async (e) => {
         e.preventDefault();
 
-        const originalW = visuel.style.width;
-        const originalMaxW = visuel.style.maxWidth;
+        // Cloner le visuel pour le rendre hors écran
+        const clone = visuel.cloneNode(true);
+        
+        // Définir une taille précise et garder le ratio
+        const scale = 3; // pour la haute qualité
+        const rect = visuel.getBoundingClientRect();
+        clone.style.width = rect.width * scale + 'px';
+        clone.style.height = rect.height * scale + 'px';
+        clone.style.position = 'fixed';
+        clone.style.left = '-9999px';
+        clone.style.top = '-9999px';
+        clone.style.transform = 'scale(1)'; // éviter tout redimensionnement CSS
+        document.body.appendChild(clone);
 
-        // élargir temporairement
-        visuel.style.width = "1600px";
-        visuel.style.maxWidth = "1600px";
-
-        await waitForImagesOf(visuel);
+        await waitForImagesOf(clone);
 
         try {
-            const canvas = await html2canvas(visuel, {
+            const canvas = await html2canvas(clone, {
                 useCORS: true,
                 backgroundColor: null,
-                scale: 4,  // qualité meilleure
+                scale: 1, // on a déjà scalé via la taille
                 logging: false
             });
 
-            // remettre la taille normale
-            visuel.style.width = originalW;
-            visuel.style.maxWidth = originalMaxW;
-
+            // Nombre aléatoire ≤ 5
+            const randomNumber = Math.floor(Math.random() * 6);
             canvas.toBlob((blob) => {
                 if (!blob) return alert("Erreur lors de la génération de l'image.");
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `visuel_${Math.floor(Math.random()*100)}.png`;
-                a.click();
-                URL.revokeObjectURL(url);
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `visuel_${randomNumber}.png`;
+                    a.click();
+                    URL.revokeObjectURL(url);
             }, 'image/png', 1.0);
 
         } catch (err) {
-            visuel.style.width = originalW;
-            visuel.style.maxWidth = originalMaxW;
             console.error(err);
             alert("Impossible de générer le visuel.");
         }
+
+        document.body.removeChild(clone);
     });
 
 });
