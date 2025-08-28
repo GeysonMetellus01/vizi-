@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const clone = visuel.cloneNode(true);
         
         // Définir une taille précise et garder le ratio
-        const scale = 3; // pour la haute qualité
+        const scale = 1; // pour la haute qualité
         const rect = visuel.getBoundingClientRect();
         clone.style.width = rect.width * scale + 'px';
         clone.style.height = rect.height * scale + 'px';
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             // Nombre aléatoire ≤ 5
-            const randomNumber = Math.floor(Math.random() * 100);
+            const randomNumber = Math.floor(Math.random() * 6);
             canvas.toBlob((blob) => {
                 if (!blob) return alert("Erreur lors de la génération de l'image.");
                     const url = URL.createObjectURL(blob);
@@ -147,5 +147,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
-
 
