@@ -61,14 +61,44 @@ document.addEventListener("DOMContentLoaded", () => {
             reader.readAsDataURL(logo);
         }
 
+
+
+        // fonction pour recadrer une image en carré
+        function cropSquare(file, callback) {
+            const img = new Image();
+            img.onload = () => {
+                const size = Math.min(img.width, img.height); // on prend le plus petit côté
+                const offsetX = (img.width - size) / 2;
+                const offsetY = (img.height - size) / 2;
+
+                const canvas = document.createElement("canvas");
+                canvas.width = size;
+                canvas.height = size;
+
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, offsetX, offsetY, size, size, 0, 0, size, size);
+
+                // on retourne le résultat en blob ou en dataURL
+                canvas.toBlob((blob) => {
+                    callback(URL.createObjectURL(blob));
+                }, "image/png");
+            };
+            img.src = URL.createObjectURL(file);
+        }
+
         const bgVisuel = document.querySelector('.bg-visuel');
         if (fond && fond.size > 0 && fond.type.startsWith("image/")) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                bgVisuel.src = e.target.result; // DataURL → fiable et net
-            };
-            reader.readAsDataURL(fond);
-        }  
+            cropSquare(fond, (croppedURL) => {
+                const reader = new FileReader();
+                bgVisuel.onload = () => URL.revokeObjectURL(croppedURL);
+                bgVisuel.src = croppedURL;
+                reader.onload = function (e) {
+                    bgVisuel.src = e.target.result; // DataURL → fiable et net
+                };
+                reader.readAsDataURL(fond);
+            });
+        }
+ 
     })
 
 
