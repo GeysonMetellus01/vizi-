@@ -162,10 +162,6 @@ form{
   z-index: 1;
   pointer-events: none;
 }
-.visuel > div{
-  position: relative;
-  z-index: 2;
-}
 
 
 .logo-container-visuel{
